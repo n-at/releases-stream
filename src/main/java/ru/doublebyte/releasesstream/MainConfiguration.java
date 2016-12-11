@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import ru.doublebyte.releasesstream.db.ReleaseRepository;
 import ru.doublebyte.releasesstream.feed.AtomReader;
 import ru.doublebyte.releasesstream.github.StarredRepositories;
+import ru.doublebyte.releasesstream.mail.MailRenderer;
+import ru.doublebyte.releasesstream.mail.MailMessageSender;
 
 @Configuration
 @EnableScheduling
@@ -19,6 +21,15 @@ public class MainConfiguration {
 
     @Value("${releases-stream.github-user}")
     private String githubUserName;
+
+    @Value("${releases-stream.mail-from}")
+    private String mailFrom;
+
+    @Value("${releases-stream.mail-to}")
+    private String mailTo;
+
+    @Value("${releases-stream.mail-subject}")
+    private String mailSubject;
 
     private final JavaMailSender javaMailSender;
     private final ReleaseRepository releaseRepository;
@@ -47,8 +58,18 @@ public class MainConfiguration {
     }
 
     @Bean
+    public MailRenderer mailRenderer() {
+        return new MailRenderer();
+    }
+
+    @Bean
+    public MailMessageSender mailMessageSender() {
+        return new MailMessageSender(javaMailSender, mailRenderer(), mailFrom, mailTo, mailSubject);
+    }
+
+    @Bean
     public Runner runner() {
-        return new Runner(atomReader());
+        return new Runner(mailMessageSender());
     }
 
 }
