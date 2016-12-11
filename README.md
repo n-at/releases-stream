@@ -15,8 +15,8 @@ An executable jar `releases-stream.jar` will be created in `target` directory.
 Configure
 =========
 
-Application configuration is stored in `application.properties` file. You can use
-`application.sample.properties` as an example.
+Application configuration is stored in `application.yml` file. You can use
+`application.sample.yml` as an example.
 
 You should provide configuration for:
 
