@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import ru.doublebyte.releasesstream.db.ReleaseRepository;
 import ru.doublebyte.releasesstream.feed.AtomReader;
 import ru.doublebyte.releasesstream.github.StarredRepositories;
 import ru.doublebyte.releasesstream.mail.MailRenderer;
 import ru.doublebyte.releasesstream.mail.MailMessageSender;
+import ru.doublebyte.releasesstream.runner.Runner;
 
 @Configuration
 @EnableScheduling
@@ -48,6 +51,11 @@ public class MainConfiguration {
     ///////////////////////////////////////////////////////////////////////////
 
     @Bean
+    public TaskScheduler taskScheduler() {
+        return new ThreadPoolTaskScheduler();
+    }
+
+    @Bean
     public StarredRepositories starredRepositories() {
         return new StarredRepositories(githubUserName, githubAccessToken);
     }
@@ -69,7 +77,7 @@ public class MainConfiguration {
 
     @Bean
     public Runner runner() {
-        return new Runner(mailMessageSender());
+        return new Runner(starredRepositories(), atomReader(), mailMessageSender(), releaseRepository);
     }
 
 }
