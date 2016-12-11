@@ -29,12 +29,13 @@ spring.mail:
 
 #Application settings
 releases-stream:
-  #email settings
+  #email message fields
   mail-from: mail@example.com
   mail-subject: releases stream
   mail-to: mail@example.com
   #github personal access token
   github-token: ******
+  #github user to fetch starred repositories
   github-user: johndoe
   #releases refresh interval (minutes)
   refresh-interval: 360
