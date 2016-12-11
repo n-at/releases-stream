@@ -1,3 +1,14 @@
+#Disable Hibernate and JPA auto database creation features
+spring.jpa:
+  generate-ddl: false
+  hibernate.ddl-auto: none
+
+spring.datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:./database
+    username: sa
+    password:
+
 releases-stream:
   mail-subject: releases stream
   refresh-interval: 360

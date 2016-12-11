@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import ru.doublebyte.releasesstream.db.ReleaseRepository;
 import ru.doublebyte.releasesstream.feed.AtomReader;
 import ru.doublebyte.releasesstream.github.StarredRepositories;
 
@@ -19,13 +20,18 @@ public class MainConfiguration {
     @Value("${releases-stream.github-user}")
     private String githubUserName;
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
+    private final ReleaseRepository releaseRepository;
 
     ///////////////////////////////////////////////////////////////////////////
 
     @Autowired
-    public MainConfiguration(JavaMailSender javaMailSender) {
+    public MainConfiguration(
+            JavaMailSender javaMailSender,
+            ReleaseRepository releaseRepository
+    ) {
         this.javaMailSender = javaMailSender;
+        this.releaseRepository = releaseRepository;
     }
 
     ///////////////////////////////////////////////////////////////////////////

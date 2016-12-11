@@ -2,3 +2,4 @@
 /*.iml
 /target/
 /application.yml
+/*.db
