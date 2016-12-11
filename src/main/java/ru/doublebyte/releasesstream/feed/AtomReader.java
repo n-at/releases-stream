@@ -41,6 +41,7 @@ public class AtomReader {
 
                 feedEntry.setId(entry.getUri());
                 feedEntry.setAuthor(entry.getAuthor());
+                feedEntry.setTitle(entry.getTitle());
                 feedEntry.setDate(LocalDateTime.ofInstant(entry.getUpdatedDate().toInstant(), ZoneId.systemDefault()));
                 feedEntry.setContent(buildContents(entry.getContents()));
 

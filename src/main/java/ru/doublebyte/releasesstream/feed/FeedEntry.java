@@ -10,6 +10,7 @@ public class FeedEntry {
     private String id;
     private String author;
     private LocalDateTime date;
+    private String title;
     private String content;
 
     ///////////////////////////////////////////////////////////////////////////
@@ -19,7 +20,7 @@ public class FeedEntry {
 
     @Override
     public String toString() {
-        return String.format("FeedEntry{id='%s', author='%s', date=%s}", id, author, date);
+        return String.format("FeedEntry{id='%s', author='%s', date=%s, title=%s}", id, author, date, title);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -46,6 +47,14 @@ public class FeedEntry {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
