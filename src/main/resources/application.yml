@@ -1,0 +1,3 @@
+releases-stream:
+  mail-subject: releases stream
+  refresh-interval: 360

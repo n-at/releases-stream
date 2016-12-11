@@ -1,0 +1,31 @@
+
+#Email settings
+spring.mail:
+  username: mail@example.com
+  password: ******
+  host: smtp.example.com
+  port: 465
+  protocol: smtps
+
+#Email settings for gmail.com
+#spring.mail:
+#  username: username@gmail.com
+#  password: ******
+#  host: smtp.gmail.com
+#  port: 587
+#  properties:
+#    mail.smtp.starttls.enable = true
+
+###############################################################################
+
+#Application settings
+releases-stream:
+  #email settings
+  mail-from: mail@example.com
+  mail-subject: releases stream
+  mail-to: mail@example.com
+  #github personal access token
+  github-token: ******
+  github-user: johndoe
+  #releases refresh interval (minutes)
+  refresh-interval: 360

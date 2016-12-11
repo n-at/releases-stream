@@ -1,0 +1,23 @@
+package ru.doublebyte.releasesstream.github;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class RepositoryTest {
+
+    @Test
+    public void getReleasesAtomUrl() throws Exception {
+        String url = "https://github.com/n-at/arbirter";
+        String releasesUrl = "https://github.com/n-at/arbirter/releases.atom";
+
+        Repository repository = new Repository();
+        repository.setName("n-at/arbirter");
+        repository.setDescription("Alternative renderer of BIRT engine reports");
+        repository.setUrl(url);
+
+        assertEquals(releasesUrl, repository.getReleasesAtomUrl());
+
+    }
+
+}
