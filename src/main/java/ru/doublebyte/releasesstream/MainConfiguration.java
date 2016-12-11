@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import ru.doublebyte.releasesstream.feed.AtomReader;
 import ru.doublebyte.releasesstream.github.StarredRepositories;
 
 @Configuration
@@ -35,8 +36,13 @@ public class MainConfiguration {
     }
 
     @Bean
+    public AtomReader atomReader() {
+        return new AtomReader();
+    }
+
+    @Bean
     public Runner runner() {
-        return new Runner(starredRepositories());
+        return new Runner(atomReader());
     }
 
 }
