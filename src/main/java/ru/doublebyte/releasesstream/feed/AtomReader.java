@@ -51,6 +51,8 @@ public class AtomReader {
             logger.error("cannot read atom feed", e);
         }
 
+        entries.sort(FeedEntry::compareTo);
+
         return entries;
     }
 

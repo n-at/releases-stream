@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Releases feed entry
  */
-public class FeedEntry {
+public class FeedEntry implements Comparable<FeedEntry> {
 
     private String id;
     private String author;
@@ -16,6 +16,17 @@ public class FeedEntry {
     ///////////////////////////////////////////////////////////////////////////
 
     public FeedEntry() {
+    }
+
+    @Override
+    public int compareTo(FeedEntry o) {
+        if (o == null) {
+            return -1;
+        }
+        if (date == null) {
+            return -1;
+        }
+        return -date.compareTo(o.getDate());
     }
 
     @Override
