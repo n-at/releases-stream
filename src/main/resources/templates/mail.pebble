@@ -1,6 +1,8 @@
-<h1 style="font-family: Arial, Helvetica, sans-serif">
+<h1 style="margin-top: 10px; margin-bottom: 5px; font-family: Arial, Helvetica, sans-serif">
     New GitHub releases
 </h1>
+
+<hr style="margin-top: 25px; margin-bottom: 25px;">
 
 {% for release in releases %}
 
@@ -14,7 +16,7 @@
             {{ release.repositoryDescription }}
         </div>
         <div style="font-family: Arial, Helvetica, sans-serif">
-            {{ release.date }} by <u>{{ release.author }}</u>
+            {{ release.dateFormatted }} by <u>{{ release.author }}</u>
         </div>
         <div style="margin-top: 30px; margin-bottom: 30px;">
             {{ release.content|raw }}

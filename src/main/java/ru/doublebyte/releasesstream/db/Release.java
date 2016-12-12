@@ -5,6 +5,7 @@ import ru.doublebyte.releasesstream.github.Repository;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Database release record
@@ -12,6 +13,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "releases")
 public class Release {
+
+    private static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     @Id
     @Column(name = "id", length = 5000)
@@ -54,6 +58,14 @@ public class Release {
         repositoryName = repository.getName();
         repositoryDescription = repository.getDescription();
         repositoryUrl = repository.getUrl();
+    }
+
+    @Transient
+    public String getDateFormatted() {
+        if (date == null) {
+            return null;
+        }
+        return date.format(DATE_TIME_FORMATTER);
     }
 
     ///////////////////////////////////////////////////////////////////////////
