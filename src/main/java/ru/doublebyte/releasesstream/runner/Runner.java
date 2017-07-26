@@ -40,7 +40,7 @@ public class Runner {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    @Scheduled(fixedDelayString = "#{${releases-stream.refresh-interval} * 60 * 1000}")
+    @Scheduled(cron = "${releases-stream.refresh-cron}")
     public void run() {
         fetchRepositoriesAndReleases();
     }
