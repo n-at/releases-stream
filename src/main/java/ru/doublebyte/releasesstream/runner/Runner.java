@@ -68,7 +68,7 @@ public class Runner {
             feedEntries.forEach(feedEntry -> {
                 Release release = new Release(repository, feedEntry);
 
-                if (!releaseRepository.exists(release.getId())) {
+                if (!releaseRepository.existsById(release.getId())) {
                     releases.add(release);
                 }
             });
@@ -89,7 +89,7 @@ public class Runner {
 
         try {
             logger.info("saving {} releases...", releases.size());
-            releaseRepository.save(releases);
+            releaseRepository.saveAll(releases);
         } catch (Exception e) {
             logger.error("releases save error", e);
         }
