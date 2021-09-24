@@ -21,7 +21,6 @@ public class StarredRepositories {
     private static final Logger logger = LoggerFactory.getLogger(StarredRepositories.class);
 
     private static final String API_URL = "https://api.github.com/";
-    private static final HttpHeaders REQUEST_HEADERS;
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String userName;
@@ -30,12 +29,6 @@ public class StarredRepositories {
     public StarredRepositories(String userName, String accessToken) {
         this.userName = userName;
         this.accessToken = accessToken;
-    }
-
-    static {
-        REQUEST_HEADERS = new HttpHeaders();
-        REQUEST_HEADERS.set("Accept", "application/vnd.github.v3+json");
-        REQUEST_HEADERS.set("User-Agent", "releases-stream");
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -50,18 +43,23 @@ public class StarredRepositories {
 
         logger.info("requesting starred repositories for {}...", userName);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/vnd.github.v3+json");
+        headers.set("User-Agent", "releases-stream");
+        headers.set("Authorization", "token " + accessToken);
+
         while (true) {
             try {
                 ResponseEntity<Repository[]> responseEntity = restTemplate.exchange(
                         buildUrl(currentPage),
                         HttpMethod.GET,
-                        new HttpEntity<>(REQUEST_HEADERS),
+                        new HttpEntity<>(headers),
                         Repository[].class
                 );
 
                 Repository[] repositoriesBatch = responseEntity.getBody();
 
-                if (repositoriesBatch.length == 0) {
+                if (repositoriesBatch == null || repositoriesBatch.length == 0) {
                     break;
                 }
 
@@ -89,7 +87,6 @@ public class StarredRepositories {
     protected String buildUrl(int page) {
         return UriComponentsBuilder.fromHttpUrl(API_URL)
                 .pathSegment("users", userName, "starred")
-                .queryParam("access_token", accessToken)
                 .queryParam("page", page)
                 .build()
                 .toString();

@@ -1,8 +1,9 @@
 package ru.doublebyte.releasesstream.github;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RepositoryTest {
 
@@ -17,7 +18,6 @@ public class RepositoryTest {
         repository.setUrl(url);
 
         assertEquals(releasesUrl, repository.getReleasesAtomUrl());
-
     }
 
 }
