@@ -8,7 +8,7 @@ public class StarredRepositoriesTest {
 
     @Test
     public void buildUrl() throws Exception {
-        String url = "https://api.github.com/users/n-at/starred?access_token=test&page=2";
+        String url = "https://api.github.com/users/n-at/starred?page=2";
 
         StarredRepositories starredRepositories = new StarredRepositories("n-at", "test");
 
