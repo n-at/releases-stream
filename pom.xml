@@ -67,7 +67,7 @@
 
         <dependency>
             <groupId>io.pebbletemplates</groupId>
-            <artifactId>pebble-spring-boot-2-starter</artifactId>
+            <artifactId>pebble-spring-boot-starter</artifactId>
             <version>${pebble.version}</version>
         </dependency>
         <dependency>
