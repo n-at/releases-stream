@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <pebble.version>3.0.8</pebble.version>
+        <pebble.version>3.1.5</pebble.version>
         <rome.version>1.7.4</rome.version>
         <javax.el.version>2.2.5</javax.el.version>
     </properties>
