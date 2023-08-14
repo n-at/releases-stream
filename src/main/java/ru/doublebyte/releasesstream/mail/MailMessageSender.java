@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import ru.doublebyte.releasesstream.db.Release;
 
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ import java.util.List;
 public class MailMessageSender {
 
     private static final Logger logger = LoggerFactory.getLogger(MailMessageSender.class);
+
+    private static final int ReleasesPerMail = 500;
 
     private final JavaMailSender javaMailSender;
     private final MailRenderer mailRenderer;
@@ -40,21 +43,38 @@ public class MailMessageSender {
 
     /**
      * Send releases email
+     *
      * @param releases Releases list
      */
     public void sendReleases(List<Release> releases) {
         try {
             logger.info("sending message...");
 
-            String message = mailRenderer.render(releases);
-            MimeMessage mimeMessage = createMessage(message);
-            javaMailSender.send(mimeMessage);
+            List<Release> currentReleases = new ArrayList<>();
+
+            releases.forEach(release -> {
+                currentReleases.add(release);
+                if (currentReleases.size() >= ReleasesPerMail) {
+                    send(currentReleases);
+                    currentReleases.clear();
+                }
+            });
+
+            if (!currentReleases.isEmpty()) {
+                send(currentReleases);
+            }
 
             logger.info("message sent");
         } catch (Exception e) {
             logger.warn("message send error: {}", e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    private void send(List<Release> releases) {
+        String message = mailRenderer.render(releases);
+        MimeMessage mimeMessage = createMessage(message);
+        javaMailSender.send(mimeMessage);
     }
 
     ///////////////////////////////////////////////////////////////////////////
